@@ -20,7 +20,7 @@ final class WeatherViewController: UITableViewController {
     }()
     
     fileprivate lazy var request: WeatherSearchRequest = {
-        return WeatherSearchRequest()
+        return WeatherSearchRequest(delegate: self)
     }()
     
     //MARK: - Lifecycle
@@ -164,5 +164,15 @@ extension WeatherViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: - WeatherSearchRequestDelegate methods
 
+extension WeatherViewController: WeatherSearchRequestDelegate {
+    func weatherSearchRequest(_ request: WeatherSearchRequest, didRecieveCurrent weather: Weather) {
+        
+    }
+    
+    func weatherSearchRequest(_ request: WeatherSearchRequest, didRecieveWeekly weather: [Weather]) {
+        
+    }
+}
 

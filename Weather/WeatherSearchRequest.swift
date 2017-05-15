@@ -23,13 +23,13 @@ final class WeatherSearchRequest {
     
     // MARK: - Properties
     
-    weak var delegate: WeatherSearchRequestDelegate?
+    private weak var delegate: WeatherSearchRequestDelegate?
     private static let nonNumberCharacters = NSCharacterSet.decimalDigits.inverted
     
     // MARK: - Lifecycle
     
-    init() {
-
+    init(delegate: WeatherSearchRequestDelegate) {
+        self.delegate = delegate
     }
     
     // MARK: - Private 

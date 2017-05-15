@@ -21,6 +21,7 @@
 		E87EDD771EC8F28C009D498B /* FetchCurrentWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87EDD761EC8F28C009D498B /* FetchCurrentWeatherData.swift */; };
 		E87EDD791EC90612009D498B /* FetchWeeklyWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87EDD781EC90612009D498B /* FetchWeeklyWeatherData.swift */; };
 		E87EDD7B1EC91C3A009D498B /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87EDD7A1EC91C3A009D498B /* Weather.swift */; };
+		E87EDD7F1EC976E5009D498B /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87EDD7E1EC976E5009D498B /* WeatherCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		E87EDD761EC8F28C009D498B /* FetchCurrentWeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchCurrentWeatherData.swift; sourceTree = "<group>"; };
 		E87EDD781EC90612009D498B /* FetchWeeklyWeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchWeeklyWeatherData.swift; sourceTree = "<group>"; };
 		E87EDD7A1EC91C3A009D498B /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		E87EDD7E1EC976E5009D498B /* WeatherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			children = (
 				E80B7F8C1EC765FF000130E1 /* Main.storyboard */,
 				E80B7F911EC76600000130E1 /* LaunchScreen.storyboard */,
+				E87EDD7E1EC976E5009D498B /* WeatherCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				E80B7FA21EC78699000130E1 /* Thread+Utilites.swift in Sources */,
 				E80B7FA81EC796E2000130E1 /* LocalizedStrings.swift in Sources */,
 				E87EDD7B1EC91C3A009D498B /* Weather.swift in Sources */,
+				E87EDD7F1EC976E5009D498B /* WeatherCell.swift in Sources */,
 				E80B7FAC1EC7A9B8000130E1 /* WeatherSearchRequest.swift in Sources */,
 				E80B7F891EC765FF000130E1 /* AppDelegate.swift in Sources */,
 				E87EDD791EC90612009D498B /* FetchWeeklyWeatherData.swift in Sources */,
