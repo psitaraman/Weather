@@ -22,6 +22,9 @@
 		E87EDD791EC90612009D498B /* FetchWeeklyWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87EDD781EC90612009D498B /* FetchWeeklyWeatherData.swift */; };
 		E87EDD7B1EC91C3A009D498B /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87EDD7A1EC91C3A009D498B /* Weather.swift */; };
 		E87EDD7F1EC976E5009D498B /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87EDD7E1EC976E5009D498B /* WeatherCell.swift */; };
+		E87EDD811EC991C4009D498B /* ImageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87EDD801EC991C4009D498B /* ImageDataSource.swift */; };
+		E87EDD831EC9BC0D009D498B /* WeatherCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87EDD821EC9BC0D009D498B /* WeatherCellViewModel.swift */; };
+		E87EDD851EC9C508009D498B /* DateFormatter+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87EDD841EC9C508009D498B /* DateFormatter+Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 		E87EDD781EC90612009D498B /* FetchWeeklyWeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchWeeklyWeatherData.swift; sourceTree = "<group>"; };
 		E87EDD7A1EC91C3A009D498B /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		E87EDD7E1EC976E5009D498B /* WeatherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
+		E87EDD801EC991C4009D498B /* ImageDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDataSource.swift; sourceTree = "<group>"; };
+		E87EDD821EC9BC0D009D498B /* WeatherCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCellViewModel.swift; sourceTree = "<group>"; };
+		E87EDD841EC9C508009D498B /* DateFormatter+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Utilities.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,7 @@
 				E80B7F8C1EC765FF000130E1 /* Main.storyboard */,
 				E80B7F911EC76600000130E1 /* LaunchScreen.storyboard */,
 				E87EDD7E1EC976E5009D498B /* WeatherCell.swift */,
+				E87EDD821EC9BC0D009D498B /* WeatherCellViewModel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -111,6 +118,7 @@
 				E87EDD761EC8F28C009D498B /* FetchCurrentWeatherData.swift */,
 				E87EDD781EC90612009D498B /* FetchWeeklyWeatherData.swift */,
 				E87EDD7A1EC91C3A009D498B /* Weather.swift */,
+				E87EDD801EC991C4009D498B /* ImageDataSource.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -130,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				E80B7FA11EC78699000130E1 /* Thread+Utilites.swift */,
+				E87EDD841EC9C508009D498B /* DateFormatter+Utilities.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -209,11 +218,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E80B7F8B1EC765FF000130E1 /* ViewController.swift in Sources */,
+				E87EDD851EC9C508009D498B /* DateFormatter+Utilities.swift in Sources */,
 				E80B7F9F1EC77511000130E1 /* WeatherViewController.swift in Sources */,
 				E80B7FA21EC78699000130E1 /* Thread+Utilites.swift in Sources */,
 				E80B7FA81EC796E2000130E1 /* LocalizedStrings.swift in Sources */,
 				E87EDD7B1EC91C3A009D498B /* Weather.swift in Sources */,
 				E87EDD7F1EC976E5009D498B /* WeatherCell.swift in Sources */,
+				E87EDD831EC9BC0D009D498B /* WeatherCellViewModel.swift in Sources */,
+				E87EDD811EC991C4009D498B /* ImageDataSource.swift in Sources */,
 				E80B7FAC1EC7A9B8000130E1 /* WeatherSearchRequest.swift in Sources */,
 				E80B7F891EC765FF000130E1 /* AppDelegate.swift in Sources */,
 				E87EDD791EC90612009D498B /* FetchWeeklyWeatherData.swift in Sources */,

@@ -11,6 +11,7 @@ import Foundation
 protocol WeatherSearchRequestDelegate: class {
     func weatherSearchRequest(_ request: WeatherSearchRequest, didRecieveCurrent weather: Weather)
     func weatherSearchRequest(_ request: WeatherSearchRequest, didRecieveWeekly weather: [Weather])
+    func weatherSearchRequest(_ request: WeatherSearchRequest, didRecieveError error: NSError)
 }
 
 final class WeatherSearchRequest {
@@ -21,10 +22,17 @@ final class WeatherSearchRequest {
         case current, weekly
     }
     
+    struct Constants {
+        static let errorKey = "error"
+        static let errorDomain = "API Error"
+        static let errorMessage = "An error occured. Please try again with valid inputs."
+    }
+    
     // MARK: - Properties
     
     private weak var delegate: WeatherSearchRequestDelegate?
     private static let nonNumberCharacters = NSCharacterSet.decimalDigits.inverted
+    private static let genericError = NSError(domain: Constants.errorDomain, code: 1001, userInfo: [Constants.errorKey : Constants.errorMessage])
     
     // MARK: - Lifecycle
     
@@ -40,15 +48,21 @@ final class WeatherSearchRequest {
     }
     
     private func recievedCurrentData(weather: Weather?) {
-        guard let weatherObject = weather else { return }
         Thread.executeOnMainThread {
+            guard let weatherObject = weather else {
+                self.delegate?.weatherSearchRequest(self, didRecieveError: WeatherSearchRequest.genericError)
+                return
+            }
             self.delegate?.weatherSearchRequest(self, didRecieveCurrent: weatherObject)
         }
     }
     
     private func recievedWeeklyData(weatherObjects: [Weather]) {
-        guard !weatherObjects.isEmpty else { return }
         Thread.executeOnMainThread {
+            guard !weatherObjects.isEmpty else {
+                self.delegate?.weatherSearchRequest(self, didRecieveError: WeatherSearchRequest.genericError)
+                return
+            }
             self.delegate?.weatherSearchRequest(self, didRecieveWeekly: weatherObjects)
         }
     }

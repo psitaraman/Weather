@@ -16,4 +16,18 @@ struct LocalizedStrings {
         static let weeklyForecastScopeButtonTitle = NSLocalizedString("searchBar.scopeButton.weeklyForecast.title", comment: "")
         static let placeholderText = NSLocalizedString("searchBar.placeholder.text", comment: "")
     }
+    
+    struct WeatherView {
+        static func windSpeedDescription(speed: Double) -> String {
+            return String.localizedStringWithFormat(NSLocalizedString("weatherView.wind.speed.description", comment: ""), speed)
+        }
+        
+        static func humidityDescription(humidity: Int) -> String {
+            return String.localizedStringWithFormat(NSLocalizedString("weatherView.humidity.description", comment: ""), humidity)
+        }
+        
+        static func pressureDescription(pressure: Int) -> String {
+            return String.localizedStringWithFormat(NSLocalizedString("weatherView.pressure.description", comment: ""), pressure)
+        }
+    }
 }

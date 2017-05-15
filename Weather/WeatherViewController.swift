@@ -44,6 +44,8 @@ final class WeatherViewController: UITableViewController {
         return self.searchController.searchBar
     }
     
+    fileprivate let imageDataSource = ImageDataSource()
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -52,15 +54,24 @@ final class WeatherViewController: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 64.0
         self.navigationController?.hidesBarsOnSwipe = true
+        self.tableView.prefetchDataSource = self
         
         self.tableView.tableFooterView = UIView()
         
         self.configureSearchController()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.preloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+        self.imageDataSource.clearCache()
     }
     
     // MARK: - Private
@@ -79,9 +90,49 @@ final class WeatherViewController: UITableViewController {
         self.searchController.searchBar.sizeToFit()
     }
     
+    private func preloadData() {
+        // preload search and search results with last search
+        guard let (searchTerm, scopeIndex) = self.retrieveSearchHistory() else { return }
+        self.searchBar.text = searchTerm
+        self.searchBar.selectedScopeButtonIndex = scopeIndex
+        self.searchBarSearchButtonClicked(self.searchBar)
+    }
+    
+    fileprivate func weatherForScopeIndex(_ index: Int, for indexPath: IndexPath) -> Weather? {
+        
+        switch ScopeType(rawValue: index)! {
+        case .current:
+            return self.currentWeatherDataSource
+            
+        case .weekly:
+            return self.weeklyWeatherDataSource[indexPath.row]
+        }
+    }
+    
     fileprivate func reloadTableView() {
         
         self.tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+    }
+    
+    fileprivate func saveSearch(searchTerm: String, scopeIndex: Int) {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(searchTerm, forKey: "searchTerm")
+        userDefaults.set(scopeIndex, forKey: "scopeIndex")
+        userDefaults.synchronize()
+    }
+    
+    fileprivate func saveScopeIndex(_ index: Int) {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(index, forKey: "scopeIndex")
+        userDefaults.synchronize()
+    }
+    
+    fileprivate func retrieveSearchHistory() -> (String, Int)? {
+        let userDefaults = UserDefaults.standard
+        let searchTerm = userDefaults.value(forKey: "searchTerm") as? String
+        let scopeIndex = userDefaults.integer(forKey: "scopeIndex")
+        
+        return searchTerm != nil ? (searchTerm!, scopeIndex) : nil
     }
 
     // MARK: - Table view data source
@@ -109,20 +160,46 @@ final class WeatherViewController: UITableViewController {
         // Configure the cell...
         let scopeIndex = self.searchBar.selectedScopeButtonIndex
         
-        var weatherObject: Weather?
-        
-        switch ScopeType(rawValue: scopeIndex)! {
-        case .current:
-            weatherObject = self.currentWeatherDataSource
-            
-        case .weekly:
-            weatherObject = self.weeklyWeatherDataSource[indexPath.row]
-        }
-        
-        guard let weather = weatherObject else { return cell }
-        cell.configureCell(weather: weather)
+        guard let weather = self.weatherForScopeIndex(scopeIndex, for: indexPath) else { return cell }
+        cell.configureCell(weatherViewModel: WeatherCellViewModel(weather: weather))
+        cell.iconIdentifier = IndexPath(row: indexPath.row, section: scopeIndex)
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = cell as! WeatherCell
+        let scopeIndex = self.searchBar.selectedScopeButtonIndex
+
+        guard let weather = self.weatherForScopeIndex(scopeIndex, for: indexPath) else { return }
+        let imageIndexPath = IndexPath(row: indexPath.row, section: scopeIndex)
+        self.imageDataSource.imageWith(url: weather.iconUrl, for: imageIndexPath) {(image, indexPath) in
+            // check to see if the image requested cell still has the same id or if it has been reused, if reused, don't set image
+            guard cell.iconIdentifier == IndexPath(row: indexPath.row, section: scopeIndex) else { return }
+            Thread.executeOnMainThread {
+                cell.iconImageView.image = image
+            }
+        }
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching methods
+
+extension WeatherViewController: UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+        let scopeIndex = self.searchBar.selectedScopeButtonIndex
+
+        for indexPath in indexPaths {
+            if let weather = self.weatherForScopeIndex(scopeIndex, for: indexPath) {
+                self.imageDataSource.prefetchImageWith(url: weather.iconUrl, for: IndexPath(row: indexPath.row, section: scopeIndex))
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        
     }
 }
 
@@ -157,6 +234,9 @@ extension WeatherViewController: UISearchBarDelegate {
             }
         }
         
+        Thread.executeOnBackgroundThread {
+            self.saveScopeIndex(scopeIndex)
+        }
         
         Thread.executeOnMainThread {
             self.reloadTableView()
@@ -176,6 +256,10 @@ extension WeatherViewController: UISearchBarDelegate {
         case .weekly:
             self.request.executeRequestWith(searchTerm: searchText, type: .weekly)
         }
+        
+        Thread.executeOnBackgroundThread { 
+            self.saveSearch(searchTerm: searchText, scopeIndex: scopeIndex)
+        }
     }
 }
 
@@ -188,6 +272,14 @@ extension WeatherViewController: WeatherSearchRequestDelegate {
     
     func weatherSearchRequest(_ request: WeatherSearchRequest, didRecieveWeekly weather: [Weather]) {
         self.weeklyWeatherDataSource = weather
+    }
+    
+    func weatherSearchRequest(_ request: WeatherSearchRequest, didRecieveError error: NSError) {
+        guard let message = error.userInfo[WeatherSearchRequest.Constants.errorKey] as? String else { return }
+        
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

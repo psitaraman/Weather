@@ -55,7 +55,7 @@ struct Weather {
     
     // MARK: - Properties
     
-    static let iconRelativePath = "openweathermap.org/img/w/"
+    static let iconRelativePath = "http://www.openweathermap.org/img/w/"
     
     let location: Location
     let wind: Wind

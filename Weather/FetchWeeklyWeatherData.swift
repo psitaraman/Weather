@@ -49,8 +49,10 @@ final class FetchWeeklyWeatherData: FetchWeatherData {
                 return
             }
             
-            let weatherList = json["list"] as! [[String: Any]]
-            let cityDictionary = json["city"] as! [String: Any]
+            guard let weatherList = json["list"] as? [[String: Any]], let cityDictionary = json["city"] as? [String: Any] else {
+                completionHandler([], nil)
+                return
+            }
             
             var weatherArray = [Weather]()
             for dictionary in weatherList {

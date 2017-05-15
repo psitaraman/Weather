@@ -28,6 +28,7 @@ final class WeatherCell: UITableViewCell {
     // MARK: - Properties
     
     static let reuseId = String(describing: WeatherCell.self)
+    var iconIdentifier: IndexPath!
     
     // MARK: - Lifecycle
     
@@ -50,17 +51,17 @@ final class WeatherCell: UITableViewCell {
     
     // MARK: - Public
     
-    func configureCell(weather: Weather) {
-        self.cityNameLabel.text = weather.location.name
-        self.descriptionLabel.text = weather.description
-        self.verboseDescriptionLabel.text = weather.verboseDescription
-        self.windSpeedLabel.text = "\(weather.wind.speed)"
-        self.humidityLabel.text = "\(weather.humidity)"
-        self.pressureLabel.text = "\(weather.pressure)"
-        //self.dateLabel.text = "\(weather.date)"
-        //self.timeLabel.text = "\(weather.date)"
-        self.temperatureLabel.text = "\(weather.temperature)"
-        self.highTemperatureLabel.text = "\(weather.maxTemperature)"
-        self.lowTemperatureLabel.text = "\(weather.minTemperature)"
+    func configureCell(weatherViewModel: WeatherCellViewModel) {
+        self.cityNameLabel.text = weatherViewModel.cityNameText
+        self.descriptionLabel.text = weatherViewModel.descriptionText
+        self.verboseDescriptionLabel.text = weatherViewModel.verboseDescriptionText
+        self.windSpeedLabel.text = weatherViewModel.windSpeedText
+        self.humidityLabel.text = weatherViewModel.humidityText
+        self.pressureLabel.text = weatherViewModel.pressureText
+        self.dateLabel.text = weatherViewModel.dateText
+        self.timeLabel.text = weatherViewModel.timeText
+        self.temperatureLabel.text = weatherViewModel.temperatureText
+        self.highTemperatureLabel.text = weatherViewModel.highTemperatureText
+        self.lowTemperatureLabel.text = weatherViewModel.lowTemperatureText
     }
 }

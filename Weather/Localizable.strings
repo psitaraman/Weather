@@ -9,3 +9,6 @@
 "searchBar.scopeButton.currentForecast.title" = "Current Forecast";
 "searchBar.scopeButton.weeklyForecast.title" = "Weekly Forecast";
 "searchBar.placeholder.text" = "Enter US City or Zip Code...";
+"weatherView.wind.speed.description" = "Wind: %.2f mi/hr";
+"weatherView.humidity.description" = "Humidity: %i %%";
+"weatherView.pressure.description" = "Pressure: %i hPa";
