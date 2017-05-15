@@ -48,7 +48,7 @@ struct Weather {
         let longitude: Float
     }
     
-    struct WindSpeed {
+    struct Wind {
         let speed: Float
         let degrees: Int
     }
@@ -58,7 +58,7 @@ struct Weather {
     static let iconRelativePath = "openweathermap.org/img/w/"
     
     let location: Location
-    let windSpeed: WindSpeed
+    let wind: Wind
     
     let identifier: String
     let date: Date
@@ -91,7 +91,7 @@ struct Weather {
         let windDic = dictionary[Keys.wind] as! [String: Any]
         let speed = windDic[Keys.windSpeedSpeed] as! Float
         let degrees = windDic[Keys.windSpeedDegrees] as! Int
-        self.windSpeed = WindSpeed(speed: speed, degrees: degrees)
+        self.wind = Wind(speed: speed, degrees: degrees)
         
         let weatherArray = dictionary[Keys.weather] as! [[String: Any]]
         let weatherDic = weatherArray.first!
@@ -112,9 +112,7 @@ struct Weather {
         self.minTemperature = mainDic[Keys.minTemperature] as! Float
         self.pressure = mainDic[Keys.pressure] as! Int
         self.humidity = mainDic[Keys.humidity] as! Int
-        self.visibility = dictionary[Keys.visibility] as! Int
-        
-        print(dictionary)
+        self.visibility = dictionary[Keys.visibility] as? Int
     }
     
     init(dictionary: [String: Any], cityDictionary: [String: Any]) {
@@ -131,7 +129,7 @@ struct Weather {
         let windDic = dictionary[Keys.wind] as! [String: Any]
         let speed = windDic[Keys.windSpeedSpeed] as! Float
         let degrees = windDic[Keys.windSpeedDegrees] as! Int
-        self.windSpeed = WindSpeed(speed: speed, degrees: degrees)
+        self.wind = Wind(speed: speed, degrees: degrees)
         
         let weatherArray = dictionary[Keys.weather] as! [[String: Any]]
         let weatherDic = weatherArray.first!
