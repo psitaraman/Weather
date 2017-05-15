@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+// this viewcontroller should only be used for adding overlays to screen. It's purpose is mainly to embed the the child viewcontroller stack
+
+final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +21,5 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 

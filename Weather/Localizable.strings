@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  Weather
+
+  Created by Praveen Sitaraman on 5/13/17.
+  Copyright © 2017 Praveen Sitaraman. All rights reserved.
+*/
+
+"searchBar.scopeButton.currentForecast.title" = "Current Forecast";
+"searchBar.scopeButton.weeklyForecast.title" = "Weekly Forecast";
+"searchBar.placeholder.text" = "Enter US City or Zip Code...";
