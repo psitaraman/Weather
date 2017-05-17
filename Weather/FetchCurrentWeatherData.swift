@@ -49,6 +49,12 @@ final class FetchCurrentWeatherData: FetchWeatherData {
                 return
             }
             
+            
+            guard let code = json["cod"] as? Int, code == 200 else {
+                completionHandler(nil, nil)
+                return
+            }
+            
             let weatherObject = Weather(dictionary: json)
             
             completionHandler(weatherObject, nil)

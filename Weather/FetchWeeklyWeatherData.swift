@@ -49,6 +49,11 @@ final class FetchWeeklyWeatherData: FetchWeatherData {
                 return
             }
             
+            guard let code = json["cod"] as? String, code == "200" else {
+                completionHandler([], nil)
+                return
+            }
+            
             guard let weatherList = json["list"] as? [[String: Any]], let cityDictionary = json["city"] as? [String: Any] else {
                 completionHandler([], nil)
                 return
