@@ -117,7 +117,7 @@ struct Weather {
     
     init(dictionary: [String: Any], cityDictionary: [String: Any]) {
         
-        let locId = String(describing: cityDictionary[Keys.identifier] as! Int)
+        let locId = String(describing: cityDictionary[Keys.identifier] as? Int ?? 0)
         let locCountryCode = cityDictionary[Keys.locationCountryCode] as! String
         let locName = cityDictionary[Keys.locationName] as! String
         let locCoord = cityDictionary[Keys.locationCoordinates] as! [String: Any]

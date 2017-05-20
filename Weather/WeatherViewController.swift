@@ -54,6 +54,7 @@ final class WeatherViewController: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 64.0
         self.navigationController?.hidesBarsOnSwipe = true
+        self.tableView.keyboardDismissMode = .onDrag
         self.tableView.prefetchDataSource = self
         
         self.tableView.tableFooterView = UIView()
